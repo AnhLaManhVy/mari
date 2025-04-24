@@ -1,0 +1,27 @@
+-- Đảm bảo thư viện WazureV1 đã được require hoặc load trước
+if not WazureV1 then
+    warn("WazureV1 chưa được khởi tạo!")
+    return
+end
+
+local WazureGui = WazureV1:Start({
+    Name = "W-azure",
+    ["Logo Player"] = "rbxassetid://18243105495",
+    ["Name Player"] = "SongDaiThanhHuyenTh",
+    ["Tab Width"] = 120,
+    Color = Color3.fromRGB(6, 141, 234),  -- sửa định dạng color
+    ["Custom Toggle"] = false,
+    ["Save Config"] = {
+        Folder = "W-azure",
+        ["Name Config"] = "Config"
+    },
+    ["CloseCallBack"] = function()
+        WazureV1:Notify({
+            Title = "DogTanny",
+            Content = "Closed UI!",
+            Logo = "rbxassetid://18289959127",
+            Time = 1,
+            Delay = 5
+        })
+    end
+})
