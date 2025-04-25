@@ -1,0 +1,51 @@
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+local root = char:WaitForChild("HumanoidRootPart")
+
+-- Cài đặt
+local HITBOX_SIZE = Vector3.new(6, 6, 6)
+local AURA_COLOR = Color3.fromRGB(80, 200, 120)
+local AURA_TRANSPARENCY = 0.4
+
+-- Xoá nếu tồn tại
+if root:FindFirstChild("Aura") then root.Aura:Destroy() end
+if root:FindFirstChild("Hitbox") then root.Hitbox:Destroy() end
+
+-- Tạo hitbox
+local hitbox = Instance.new("Part")
+hitbox.Name = "Hitbox"
+hitbox.Anchored = false
+hitbox.CanCollide = false
+hitbox.Massless = true
+hitbox.Transparency = 1
+hitbox.Size = HITBOX_SIZE
+hitbox.Parent = root
+
+local weld = Instance.new("WeldConstraint", hitbox)
+weld.Part0 = root
+weld.Part1 = hitbox
+
+-- Tạo aura neon
+local aura = Instance.new("Part")
+aura.Name = "Aura"
+aura.Anchored = false
+aura.CanCollide = false
+aura.Massless = true
+aura.Material = Enum.Material.Neon
+aura.Color = AURA_COLOR
+aura.Transparency = AURA_TRANSPARENCY
+aura.Size = HITBOX_SIZE + Vector3.new(0.5, 0.5, 0.5)
+aura.Parent = root
+
+local weld2 = Instance.new("WeldConstraint", aura)
+weld2.Part0 = root
+weld2.Part1 = aura
+
+-- Thêm glow sáng
+local light = Instance.new("PointLight", aura)
+light.Brightness = 3
+light.Range = 10
+light.Color = AURA_COLOR
